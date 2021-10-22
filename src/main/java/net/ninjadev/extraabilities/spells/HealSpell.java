@@ -12,7 +12,22 @@ import org.jetbrains.annotations.NotNull;
 public class HealSpell extends Spell<HealSpellProperties> {
 
     public HealSpell() {
-        super(SpellType.HEAL, PluginConfigs.getSpellsConfig().getHealSpellProperties());
+        super(PluginConfigs.getSpellsConfig().getHealSpellProperties());
+    }
+
+    @Override
+    public SpellType getType() {
+        return SpellType.HEAL;
+    }
+
+    @Override
+    public Sound getSuccessSound() {
+        return Sound.ENTITY_PLAYER_LEVELUP;
+    }
+
+    @Override
+    public Sound getFailSound() {
+        return Sound.BLOCK_CANDLE_EXTINGUISH;
     }
 
     @Override
@@ -38,15 +53,5 @@ public class HealSpell extends Spell<HealSpellProperties> {
         playFail(target.getWorld(), target.getLocation());
         return false;
 
-    }
-
-    @Override
-    public Sound getSuccessSound() {
-        return Sound.ENTITY_PLAYER_LEVELUP;
-    }
-
-    @Override
-    public Sound getFailSound() {
-        return Sound.BLOCK_CANDLE_EXTINGUISH;
     }
 }

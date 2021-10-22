@@ -21,7 +21,22 @@ import org.bukkit.util.Vector;
 public class FlameSpell extends Spell<FlameSpellProperties> {
 
     public FlameSpell() {
-        super(SpellType.FLAME, PluginConfigs.getSpellsConfig().getFlameSpellProperties());
+        super(PluginConfigs.getSpellsConfig().getFlameSpellProperties());
+    }
+
+    @Override
+    public SpellType getType() {
+        return SpellType.FLAME;
+    }
+
+    @Override
+    public Sound getSuccessSound() {
+        return Sound.ENTITY_BLAZE_SHOOT;
+    }
+
+    @Override
+    public Sound getFailSound() {
+        return Sound.BLOCK_CANDLE_EXTINGUISH;
     }
 
     @Override
@@ -43,15 +58,7 @@ public class FlameSpell extends Spell<FlameSpellProperties> {
         container.set(ExtraAbilities.getKey("flameDamage"), PersistentDataType.DOUBLE, damageAmount);
     }
 
-    @Override
-    public Sound getSuccessSound() {
-        return Sound.ENTITY_BLAZE_SHOOT;
-    }
 
-    @Override
-    public Sound getFailSound() {
-        return Sound.BLOCK_CANDLE_EXTINGUISH;
-    }
 
     /* ----------------------- events ------------------- */
 

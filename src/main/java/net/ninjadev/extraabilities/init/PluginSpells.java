@@ -12,7 +12,6 @@ public class PluginSpells {
 
     private static final BiMap<Spell.SpellType, Spell<?>> spellRegistry = HashBiMap.create();
 
-
     public static void register() {
         register(new HealSpell());
         register(new FlameSpell());
