@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'net.ninjadev'
+version = '0.1'
+
+repositories {
+    mavenCentral()
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:22.0.0'
+
+    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+}
+
+task testJar(type: Jar) {
+    description 'Build a test Jar'
+    archiveClassifier.set("DEV")
+    from sourceSets.main.output
+    destinationDirectory = file("C:/Spigot Server/plugins")
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}

@@ -1,0 +1,8 @@
+name: ExtraAbilities
+version: '${version}'
+main: net.ninjadev.extraabilities.ExtraAbilities
+api-version: 1.17
+prefix: ExtraAbilities
+load: STARTUP
+authors: [ jmilthedude ]
+website: https://ninjadev.net
