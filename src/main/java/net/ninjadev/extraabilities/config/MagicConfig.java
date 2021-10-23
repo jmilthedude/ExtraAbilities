@@ -13,7 +13,7 @@ public class MagicConfig extends Config {
     @Expose private FlameSpellProperties flameSpellProperties;
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Magic";
     }
 

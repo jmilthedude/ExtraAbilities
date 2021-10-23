@@ -14,8 +14,18 @@ public class PlayerData extends Data {
     @Expose private final HashMap<UUID, AbilityPlayer> players = new HashMap<>();
 
     @Override
+    protected void reset() {
+
+    }
+
+    @Override
     public String getName() {
         return "PlayerData";
+    }
+
+    @Override
+    public String getDirectory() {
+        return "data";
     }
 
     @Override
@@ -28,9 +38,15 @@ public class PlayerData extends Data {
     }
 
     private AbilityPlayer getPlayer(UUID uuid) {
-        AbilityPlayer survivor = players.computeIfAbsent(uuid, AbilityPlayer::new);
+        AbilityPlayer player = getAndValidate(players.computeIfAbsent(uuid, AbilityPlayer::new));
         markDirty();
-        return survivor;
+        return player;
+    }
+
+    private AbilityPlayer getAndValidate(AbilityPlayer player) {
+        if (player.getMagicAbility() == null) player.initMagicAbility();
+        if (player.getHardenedAbility() == null) player.initHardenedAbility();
+        return player;
     }
 
     public Collection<AbilityPlayer> getPlayers() {

@@ -22,8 +22,8 @@ public class AbilityPlayer implements Tickable, Saveable {
 
     public AbilityPlayer(UUID uuid) {
         this.uuid = uuid;
-        this.magicAbility = new MagicAbility(PluginConfigs.getMagicConfig().getBaseProperties());
-        this.hardenedAbility = new HardenedAbility(PluginConfigs.getHardenedConfig().getBaseProperties());
+        initMagicAbility();
+        initHardenedAbility();
         this.magicAbility.learnSpell(Spell.SpellType.HEAL);
         this.magicAbility.learnSpell(Spell.SpellType.FLAME);
     }
@@ -55,5 +55,13 @@ public class AbilityPlayer implements Tickable, Saveable {
 
     public Player getBukkitPlayer() {
         return Bukkit.getPlayer(this.uuid);
+    }
+
+    public void initMagicAbility() {
+        this.magicAbility = new MagicAbility(PluginConfigs.getMagicConfig().getBaseProperties());
+    }
+
+    public void initHardenedAbility() {
+        this.hardenedAbility = new HardenedAbility(PluginConfigs.getHardenedConfig().getBaseProperties());
     }
 }

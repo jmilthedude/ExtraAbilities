@@ -8,7 +8,7 @@ public class HardenedConfig extends Config {
     @Expose private HardenedProperties baseProperties;
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Hardened";
     }
 
