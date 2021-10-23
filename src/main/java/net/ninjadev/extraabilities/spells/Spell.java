@@ -27,7 +27,7 @@ public abstract class Spell<P extends SpellProperties> implements Listener {
 
     protected boolean canCast(AbilityPlayer player) {
         if (player.getMagicAbility().getCooldown().isActive()) return false;
-        return player.getMagicAbility().getCurrentAmount() - properties.getCost() >= 0;
+        return player.getMagicAbility().getProperties().getMp() - properties.getCost() >= 0;
     }
 
     public void cast(AbilityPlayer player) {
@@ -37,7 +37,7 @@ public abstract class Spell<P extends SpellProperties> implements Listener {
         }
 
         if (doCast(player)) {
-            player.getMagicAbility().decreaseAmount(this.getProperties().getCost());
+            player.getMagicAbility().getProperties().decreaseMp(this.getProperties().getCost());
             player.getMagicAbility().startCooldown(this.getProperties().getCooldown());
         }
     }

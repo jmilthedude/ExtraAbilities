@@ -21,7 +21,7 @@ import org.bukkit.util.Vector;
 public class FlameSpell extends Spell<FlameSpellProperties> {
 
     public FlameSpell() {
-        super(PluginConfigs.getSpellsConfig().getFlameSpellProperties());
+        super(PluginConfigs.getMagicConfig().getFlameSpellProperties());
     }
 
     @Override

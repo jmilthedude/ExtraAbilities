@@ -1,31 +1,28 @@
 package net.ninjadev.extraabilities.config;
 
 import com.google.gson.annotations.Expose;
-import net.ninjadev.extraabilities.ExtraAbilities;
+import net.ninjadev.extraabilities.ability.magic.MagicProperties;
 import net.ninjadev.extraabilities.spells.properties.FlameSpellProperties;
 import net.ninjadev.extraabilities.spells.properties.HealSpellProperties;
 
-import java.io.File;
+public class MagicConfig extends Config {
 
-public class SpellsConfig extends Config {
+    @Expose private MagicProperties baseProperties;
 
     @Expose private HealSpellProperties healSpellProperties;
     @Expose private FlameSpellProperties flameSpellProperties;
 
     @Override
     protected String getName() {
-        return "spells";
+        return "Magic";
     }
 
     @Override
     protected void reset() {
+        baseProperties = MagicProperties.getDefault();
+
         healSpellProperties = new HealSpellProperties(4.0d);
         flameSpellProperties = new FlameSpellProperties(4.0d);
-    }
-
-    @Override
-    protected File getRoot() {
-        return new File(ExtraAbilities.getInstance().getDataFolder(), "config/");
     }
 
     public HealSpellProperties getHealSpellProperties() {
@@ -34,5 +31,9 @@ public class SpellsConfig extends Config {
 
     public FlameSpellProperties getFlameSpellProperties() {
         return flameSpellProperties;
+    }
+
+    public MagicProperties getBaseProperties() {
+        return baseProperties;
     }
 }

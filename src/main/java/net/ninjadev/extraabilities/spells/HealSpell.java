@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class HealSpell extends Spell<HealSpellProperties> {
 
     public HealSpell() {
-        super(PluginConfigs.getSpellsConfig().getHealSpellProperties());
+        super(PluginConfigs.getMagicConfig().getHealSpellProperties());
     }
 
     @Override

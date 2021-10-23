@@ -3,6 +3,7 @@ package net.ninjadev.extraabilities.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import net.ninjadev.extraabilities.ExtraAbilities;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,7 +21,7 @@ public abstract class Config {
     protected abstract void reset();
 
     protected File getRoot() {
-        return new File("./config/");
+        return new File(ExtraAbilities.getInstance().getDataFolder(), "config/");
     }
 
     private String extension() {

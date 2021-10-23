@@ -1,31 +1,25 @@
-package net.ninjadev.extraabilities.ability;
+package net.ninjadev.extraabilities.ability.magic;
 
 import com.google.gson.annotations.Expose;
 import net.ninjadev.extraabilities.spells.Spell;
 import net.ninjadev.extraabilities.util.Cooldown;
+import net.ninjadev.extraabilities.util.Saveable;
 import net.ninjadev.extraabilities.util.Tickable;
-import net.ninjadev.extraabilities.world.data.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagicAbility implements Tickable {
+public class MagicAbility implements Tickable, Saveable {
 
-    @Expose private int current;
-    @Expose private int max;
-    @Expose private int regenRate;
-    @Expose private int regenAmount;
-    @Expose private int currentSpellIndex;
-    @Expose private List<Spell.SpellType> learnedSpells = new ArrayList<>();
+    @Expose private final MagicProperties stats;
+    @Expose int currentSpellIndex;
+    @Expose List<Spell.SpellType> learnedSpells = new ArrayList<>();
 
     private long totalTicks = 0;
     private Cooldown cooldown;
 
-    public MagicAbility(int max) {
-        this.current = max;
-        this.max = max;
-        this.regenRate = 15;
-        this.regenAmount = 1;
+    public MagicAbility(MagicProperties stats) {
+        this.stats = stats;
     }
 
     @Override
@@ -35,46 +29,33 @@ public class MagicAbility implements Tickable {
             getCooldown().update();
             return;
         }
-        if (totalTicks % regenRate == 0) regen();
+        if (totalTicks % stats.getRegenRate() == 0) stats.regen();
     }
 
-    private void regen() {
-        if (current == max) return;
-        this.current = Math.min(max, current + regenAmount);
-        PlayerData.get().markDirty();
+    public MagicProperties getProperties() {
+        return stats;
     }
 
-    public int getCurrentAmount() {
-        return current;
+    public int getCurrentSpellIndex() {
+        return currentSpellIndex;
     }
 
-    public void decreaseAmount(int amount) {
-        this.current = Math.max(0, current - amount);
-        PlayerData.get().markDirty();
-    }
-
-    public void increaseAmount(int amount) {
-        this.current = Math.min(max, current + amount);
-        PlayerData.get().markDirty();
-    }
-
-
-    public int getMax() {
-        return max;
+    public void setCurrentSpellIndex(int currentSpellIndex) {
+        this.currentSpellIndex = currentSpellIndex;
+        setModified();
     }
 
     public Spell<?> getCurrentSpell() {
-        if (learnedSpells.isEmpty()) learnSpell(Spell.SpellType.HEAL);
-        PlayerData.get().markDirty();
         return learnedSpells.get(currentSpellIndex).getSpell();
     }
 
-    public Spell<?> getNextSpell(boolean forward) {
+    public Spell<?> getNextLearnedSpell(boolean forward) {
         if (forward) {
             this.currentSpellIndex = currentSpellIndex + 1 == learnedSpells.size() ? 0 : currentSpellIndex + 1;
         } else {
             this.currentSpellIndex = currentSpellIndex - 1 < 0 ? learnedSpells.size() - 1 : currentSpellIndex - 1;
         }
+        setModified();
         return this.getCurrentSpell();
     }
 
@@ -87,7 +68,7 @@ public class MagicAbility implements Tickable {
         if (learnedSpells.contains(type)) return;
 
         this.learnedSpells.add(type);
-        PlayerData.get().markDirty();
+        setModified();
     }
 
     public void startCooldown(int ticks) {

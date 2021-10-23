@@ -14,8 +14,8 @@ public final class ExtraAbilities extends JavaPlugin {
     public void onEnable() {
         if (INSTANCE == null) INSTANCE = this;
 
-        PluginConfigs.register();
         PluginData.register();
+        PluginConfigs.register();
         PluginEvents.register();
         PluginSpells.register();
         PluginTasks.register();
