@@ -3,13 +3,13 @@ package net.ninjadev.extraabilities.ability;
 import com.google.gson.annotations.Expose;
 import net.ninjadev.extraabilities.spells.Spell;
 import net.ninjadev.extraabilities.util.Cooldown;
-import net.ninjadev.extraabilities.util.ITickable;
+import net.ninjadev.extraabilities.util.Tickable;
 import net.ninjadev.extraabilities.world.data.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagicAbility implements ITickable {
+public class MagicAbility implements Tickable {
 
     @Expose private int current;
     @Expose private int max;
@@ -28,6 +28,7 @@ public class MagicAbility implements ITickable {
         this.regenAmount = 1;
     }
 
+    @Override
     public void tick() {
         totalTicks++;
         if (getCooldown().isActive()) {

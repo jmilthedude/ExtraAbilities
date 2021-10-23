@@ -1,6 +1,6 @@
 package net.ninjadev.extraabilities.util;
 
-public interface ITickable {
+public interface Tickable {
 
     void tick();
 }

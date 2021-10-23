@@ -5,14 +5,14 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.ninjadev.extraabilities.ability.MagicAbility;
 import net.ninjadev.extraabilities.spells.Spell;
-import net.ninjadev.extraabilities.util.ITickable;
+import net.ninjadev.extraabilities.util.Tickable;
 import net.ninjadev.extraabilities.world.data.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class AbilityPlayer implements ITickable {
+public class AbilityPlayer implements Tickable {
 
     @Expose private final UUID uuid;
     @Expose private MagicAbility magicAbility;
